@@ -16,7 +16,9 @@ class LinebotController < ApplicationController
    
        signature = request.env["HTTP_X_LINE_SIGNATURE"]
        unless client.validate_signature(body, signature)
-         error 400 do "Bad Request" end
+         #error 400 do "Bad Request" end
+         puts "aaaaaaaaaaaaaaaaaaaaaaaaaa"
+         puts params[:event][:message][:text]
        end
    
        events = client.parse_events_from(body)
@@ -30,7 +32,8 @@ class LinebotController < ApplicationController
                type: "text",
                text: event.message["text"] + "!"
              }
-             client.reply_message(event["replyToken"], message)
+             #client.reply_message(event["replyToken"], message)
+             #client.reply_message(event["replyToken"], "aaaa")
            when Line::Bot::Event::MessageType::Location
              message = {
                type: "location",
